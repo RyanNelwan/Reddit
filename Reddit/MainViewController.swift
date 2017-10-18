@@ -41,7 +41,6 @@ class MainViewController: UIViewController {
                 if error != nil {
                     print("Error")
                 }
-                
                 guard let data = data else { return }
                 self.handleDataResponse(with: data)
             }
@@ -52,12 +51,23 @@ class MainViewController: UIViewController {
     
     func handleDataResponse(with data: Data) {
         // https://developer.apple.com/swift/blog/?id=37
+        //do {
+        //    let json = try JSONSerialization.jsonObject(with: data, options: .mutableContainers)
+        //    print(json)
+        //} catch {
+        //    print("Error")
+        //}
+        
         do {
-            let json = try JSONSerialization.jsonObject(with: data, options: .mutableContainers)
-            print(json)
+            let model = try JSONDecoder().decode(RedditModel.self, from: data)
+            print("""
+                Post Title: \(String(describing: model.data.children[0].data.title))
+                Post Kind: \(String(describing: model.data.children[0].kind))
+                """)
         } catch {
-            print("Error")
+            print("Error: \(error))")
         }
+        
     }
 }
 
