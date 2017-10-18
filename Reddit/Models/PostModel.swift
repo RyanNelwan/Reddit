@@ -10,21 +10,13 @@ import Foundation
 
 /*
  {
-     "kind":"Listing",
-     "data":{
-         "modhash":"",
-         "whitelist_status":"all_ads",
-         "children":[
-             {
-                 "kind":"t3",
-                 "data":{ ... }
-             }
-         ]
-     }
+     "kind":"t3",
+     "data":{ ... }
  }
- */
+*/
 
 struct PostModel: Codable {
+    
     struct Data: Codable {
         let title: String?
         let author:String?
@@ -66,10 +58,12 @@ struct PostModel: Codable {
                 Post thumbnail: \(String(describing: self.thumbnail))
                 Post num_comments: \(self.num_comments)
                 Post created: \(self.created)
+                Post thumbnail: \(self.thumbnail)
                 ----------------------------------------------------------------------
                 """)
         }
     }
+    
     let kind: String?
     let data: Data
 }

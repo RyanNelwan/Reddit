@@ -25,6 +25,9 @@
                                     <rect key="frame" x="0.0" y="221" width="375" height="44"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <state key="normal" title="Load More"/>
+                                    <connections>
+                                        <action selector="fetchMore" destination="BYZ-38-t0r" eventType="touchUpInside" id="0by-ku-NSC"/>
+                                    </connections>
                                 </button>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Post" rowHeight="193" id="h2s-ZL-lec" customClass="PostTableViewCell" customModule="Reddit" customModuleProvider="target">

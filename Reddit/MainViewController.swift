@@ -14,9 +14,6 @@ class MainViewController: UIViewController {
     
     var requestManager = RequestManager()
     var dataTask: URLSessionDataTask?
-    
-    // Temp Fixtures
-    let data = ["Some data", "Another data value", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras eu tristique urna. Praesent faucibus ligula quis turpis vehicula mattis. Curabitur odio lectus, dapibus quis auctor et, imperdiet a eros. Proin gravida sit amet sapien et accumsan. Nullam sit amet mauris nunc. Donec consectetur justo mauris, quis viverra mi sodales quis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Donec non nibh et diam suscipit accumsan a nec lorem. Nulla id interdum libero, sed dapibus ex."]
     var redditModel: RedditModel?
     
     override func viewDidLoad() {
@@ -30,7 +27,10 @@ class MainViewController: UIViewController {
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    }
+    
+    @IBAction func fetchMore() {
+        self.fetchTopPosts()
     }
     
     func fetchTopPosts() {
@@ -41,7 +41,6 @@ class MainViewController: UIViewController {
         self.dataTask?.cancel()
         if let components = URLComponents(string: urlString) {
             guard let url = components.url else { return }
-            
             self.dataTask = URLSession.shared.dataTask(with: url) { (data, response, error) in
                 if error != nil {
                     print("Error")
@@ -57,7 +56,12 @@ class MainViewController: UIViewController {
     func handleResponseData(with data: Data) {
         do {
             let model = try JSONDecoder().decode(RedditModel.self, from: data)
-            self.redditModel = model
+            
+            if self.redditModel == nil {
+                self.redditModel = model
+            } else {
+                self.redditModel?.data.posts.append(contentsOf: model.data.posts)
+            }
             
             if let nextID = model.data.after {
                 self.requestManager.nextID = nextID
@@ -73,10 +77,6 @@ class MainViewController: UIViewController {
 }
 
 extension MainViewController: UITableViewDelegate, UITableViewDataSource {
-    
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.redditModel?.data.posts.count ?? 0

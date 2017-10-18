@@ -9,6 +9,22 @@
 // Helpful Links:
 // https://developer.apple.com/documentation/foundation/archives_and_serialization/encoding_and_decoding_custom_types
 
+/*
+ {
+     "kind":"Listing",
+     "data":{
+         "modhash":"",
+         "whitelist_status":"all_ads",
+         "children":[
+             {
+                 "kind":"t3",
+                 "data":{ ... }
+             }
+         ]
+     }
+ }
+*/
+
 import Foundation
 
 struct RedditModel: Codable {
@@ -23,7 +39,7 @@ struct RedditModel: Codable {
         // and "prev" buttons on the site and in combination with count can be used to page
         // through the listing."
         let after: String?
-        let posts: [PostModel]
+        var posts: [PostModel]
         
         enum CodingKeys : String, CodingKey {
             case after
@@ -32,7 +48,7 @@ struct RedditModel: Codable {
     }
     
     let kind: String?
-    let data: Data
+    var data: Data
     
     func log() {
         print("""
