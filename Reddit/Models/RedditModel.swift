@@ -14,7 +14,17 @@ import Foundation
 struct RedditModel: Codable {
     struct Data: Codable {
         let children: [PostModel]
+        let after: String?
     }
+    
+    func log() {
+        print("""
+            Root After: \(String(describing: self.data.after))
+            Post Title: \(String(describing: self.data.children[0].data.title))
+            Post Kind: \(String(describing: self.data.children[0].kind))
+            """)
+    }
+    
     let kind: String?
     let data: Data
 }

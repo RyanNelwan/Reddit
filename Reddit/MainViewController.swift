@@ -15,6 +15,7 @@ class MainViewController: UIViewController {
     
     // Temp Fixtures
     let data = ["Some data", "Another data value", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras eu tristique urna. Praesent faucibus ligula quis turpis vehicula mattis. Curabitur odio lectus, dapibus quis auctor et, imperdiet a eros. Proin gravida sit amet sapien et accumsan. Nullam sit amet mauris nunc. Donec consectetur justo mauris, quis viverra mi sodales quis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Donec non nibh et diam suscipit accumsan a nec lorem. Nulla id interdum libero, sed dapibus ex."]
+    var nextID: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,24 +51,15 @@ class MainViewController: UIViewController {
     }
     
     func handleDataResponse(with data: Data) {
-        // https://developer.apple.com/swift/blog/?id=37
-        //do {
-        //    let json = try JSONSerialization.jsonObject(with: data, options: .mutableContainers)
-        //    print(json)
-        //} catch {
-        //    print("Error")
-        //}
-        
         do {
             let model = try JSONDecoder().decode(RedditModel.self, from: data)
-            print("""
-                Post Title: \(String(describing: model.data.children[0].data.title))
-                Post Kind: \(String(describing: model.data.children[0].kind))
-                """)
+            model.log()
+            if let nextID = model.data.after {
+                self.nextID = nextID
+            }
         } catch {
             print("Error: \(error))")
         }
-        
     }
 }
 
