@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9425F21C1F981ABF00A5D3D4 /* UIImageView+Reddit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9425F21B1F981ABF00A5D3D4 /* UIImageView+Reddit.swift */; };
 		94DAE7051F97D55100B5E459 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94DAE7041F97D55100B5E459 /* AppDelegate.swift */; };
 		94DAE7071F97D55100B5E459 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94DAE7061F97D55100B5E459 /* MainViewController.swift */; };
 		94DAE70A1F97D55100B5E459 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 94DAE7081F97D55100B5E459 /* Main.storyboard */; };
@@ -38,6 +39,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9425F21B1F981ABF00A5D3D4 /* UIImageView+Reddit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Reddit.swift"; sourceTree = "<group>"; };
 		94DAE7011F97D55100B5E459 /* Reddit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Reddit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		94DAE7041F97D55100B5E459 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		94DAE7061F97D55100B5E459 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
@@ -82,6 +84,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9425F21A1F981AB100A5D3D4 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				9425F21B1F981ABF00A5D3D4 /* UIImageView+Reddit.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		94DAE6F81F97D55100B5E459 = {
 			isa = PBXGroup;
 			children = (
@@ -105,6 +115,7 @@
 		94DAE7031F97D55100B5E459 /* Reddit */ = {
 			isa = PBXGroup;
 			children = (
+				9425F21A1F981AB100A5D3D4 /* Extensions */,
 				94EB5B601F97FEDB000451A3 /* Utils */,
 				94EB5B5B1F97F834000451A3 /* Models */,
 				94EB5B4C1F97DE4C000451A3 /* TableViewCells */,
@@ -300,6 +311,7 @@
 				94EB5B5D1F97F86C000451A3 /* RedditModel.swift in Sources */,
 				94EB5B641F97FEF9000451A3 /* RequestManager.swift in Sources */,
 				94DAE7051F97D55100B5E459 /* AppDelegate.swift in Sources */,
+				9425F21C1F981ABF00A5D3D4 /* UIImageView+Reddit.swift in Sources */,
 				94EB5B5A1F97DF60000451A3 /* PostTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
