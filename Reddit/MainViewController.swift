@@ -11,6 +11,8 @@ import UIKit
 class MainViewController: UIViewController {
     
     @IBOutlet var tableView: UITableView!
+    
+    let requestManager = RequestManager()
     var dataTask: URLSessionDataTask?
     
     // Temp Fixtures
@@ -32,7 +34,7 @@ class MainViewController: UIViewController {
     }
     
     func fetchTopPosts() {
-        let urlString = "https://www.reddit.com/top.json"
+        let urlString = self.requestManager.urlString()
         
         self.dataTask?.cancel()
         if let components = URLComponents(string: urlString) {

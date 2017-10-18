@@ -12,4 +12,9 @@ struct RequestManager {
     let baseURLString = "https://www.reddit.com"
     let path = "/top"
     let format = "json"
+    let limit = 10
+    
+    func urlString() -> String {
+        return "\(baseURLString)\(path).\(format)?limit=\(limit)"
+    }
 }
