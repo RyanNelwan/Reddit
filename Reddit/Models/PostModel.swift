@@ -32,6 +32,14 @@ struct PostModel: Codable {
         let num_comments: Int
         let created: Double
         
+        func numberOfCommentsString()-> String {
+            return "\(self.num_comments) \(self.num_comments == 0 || self.num_comments > 1 ? "comments" : "comment")"
+        }
+        
+        func dateString()-> String {
+            return "\(created)"
+        }
+        
         func log() {
             print("""
                 ----------------------------------------------------------------------

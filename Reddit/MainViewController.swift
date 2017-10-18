@@ -17,6 +17,7 @@ class MainViewController: UIViewController {
     
     // Temp Fixtures
     let data = ["Some data", "Another data value", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras eu tristique urna. Praesent faucibus ligula quis turpis vehicula mattis. Curabitur odio lectus, dapibus quis auctor et, imperdiet a eros. Proin gravida sit amet sapien et accumsan. Nullam sit amet mauris nunc. Donec consectetur justo mauris, quis viverra mi sodales quis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Donec non nibh et diam suscipit accumsan a nec lorem. Nulla id interdum libero, sed dapibus ex."]
+    var redditModel: RedditModel?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,20 +47,24 @@ class MainViewController: UIViewController {
                     print("Error")
                 }
                 guard let data = data else { return }
-                self.handleDataResponse(with: data)
+                self.handleResponseData(with: data)
             }
         }
         
         self.dataTask?.resume()
     }
     
-    func handleDataResponse(with data: Data) {
+    func handleResponseData(with data: Data) {
         do {
             let model = try JSONDecoder().decode(RedditModel.self, from: data)
-            model.log()
+            self.redditModel = model
             
             if let nextID = model.data.after {
                 self.requestManager.nextID = nextID
+            }
+            
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
             }
         } catch {
             print("Error: \(error))")
@@ -74,12 +79,30 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.data.count
+        return self.redditModel?.data.posts.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
         let cell = self.tableView.dequeueReusableCell(withIdentifier: "Post", for: indexPath) as! PostTableViewCell
-        cell.titleLabel.text = self.data[indexPath.row]
+        let postModel = self.redditModel?.data.posts[indexPath.row]
+        
+        if let titleString = postModel?.data.title {
+            cell.titleLabel.text = titleString
+        }
+        
+        if let dateString = postModel?.data.dateString() {
+            cell.dateLabel.text = dateString
+        }
+        
+        if let authorString = postModel?.data.author {
+            cell.authorLabel.text = authorString
+        }
+        
+        if let numberOfCommentsString = postModel?.data.numberOfCommentsString() {
+            cell.numberOfCommentsLabel.text = numberOfCommentsString
+        }
+        
         return cell
     }
 }

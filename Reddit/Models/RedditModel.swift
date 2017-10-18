@@ -12,9 +12,8 @@
 import Foundation
 
 struct RedditModel: Codable {
+    
     struct Data: Codable {
-        let posts: [PostModel]
-        
         // https://www.reddit.com/dev/api/
         // As per reddit api documentation, the concept of numerical pages does not exists.
         //
@@ -24,12 +23,16 @@ struct RedditModel: Codable {
         // and "prev" buttons on the site and in combination with count can be used to page
         // through the listing."
         let after: String?
+        let posts: [PostModel]
         
         enum CodingKeys : String, CodingKey {
             case after
             case posts = "children" // Map "children" to "posts". It's clearer this way.
         }
     }
+    
+    let kind: String?
+    let data: Data
     
     func log() {
         print("""
@@ -40,7 +43,4 @@ struct RedditModel: Codable {
             ----------------------------------------------------------------------
             """)
     }
-    
-    let kind: String?
-    let data: Data
 }
