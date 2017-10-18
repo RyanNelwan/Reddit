@@ -17,6 +17,7 @@
 		94EB5B5A1F97DF60000451A3 /* PostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94EB5B591F97DF60000451A3 /* PostTableViewCell.swift */; };
 		94EB5B5D1F97F86C000451A3 /* RedditModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94EB5B5C1F97F86C000451A3 /* RedditModel.swift */; };
 		94EB5B5F1F97F8A9000451A3 /* PostModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94EB5B5E1F97F8A9000451A3 /* PostModel.swift */; };
+		94EB5B641F97FEF9000451A3 /* RequestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94EB5B631F97FEF9000451A3 /* RequestManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +54,7 @@
 		94EB5B591F97DF60000451A3 /* PostTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostTableViewCell.swift; sourceTree = "<group>"; };
 		94EB5B5C1F97F86C000451A3 /* RedditModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedditModel.swift; sourceTree = "<group>"; };
 		94EB5B5E1F97F8A9000451A3 /* PostModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostModel.swift; sourceTree = "<group>"; };
+		94EB5B631F97FEF9000451A3 /* RequestManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +105,7 @@
 		94DAE7031F97D55100B5E459 /* Reddit */ = {
 			isa = PBXGroup;
 			children = (
+				94EB5B601F97FEDB000451A3 /* Utils */,
 				94EB5B5B1F97F834000451A3 /* Models */,
 				94EB5B4C1F97DE4C000451A3 /* TableViewCells */,
 				94DAE7041F97D55100B5E459 /* AppDelegate.swift */,
@@ -148,6 +151,14 @@
 				94EB5B5E1F97F8A9000451A3 /* PostModel.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		94EB5B601F97FEDB000451A3 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				94EB5B631F97FEF9000451A3 /* RequestManager.swift */,
+			);
+			path = Utils;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -287,6 +298,7 @@
 				94DAE7071F97D55100B5E459 /* MainViewController.swift in Sources */,
 				94EB5B5F1F97F8A9000451A3 /* PostModel.swift in Sources */,
 				94EB5B5D1F97F86C000451A3 /* RedditModel.swift in Sources */,
+				94EB5B641F97FEF9000451A3 /* RequestManager.swift in Sources */,
 				94DAE7051F97D55100B5E459 /* AppDelegate.swift in Sources */,
 				94EB5B5A1F97DF60000451A3 /* PostTableViewCell.swift in Sources */,
 			);
