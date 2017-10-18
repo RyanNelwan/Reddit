@@ -43,13 +43,21 @@ class MainViewController: UIViewController {
                 }
                 
                 guard let data = data else { return }
-                
-                // Handle response data
-                print(data)
+                self.handleDataResponse(with: data)
             }
         }
         
         self.dataTask?.resume()
+    }
+    
+    func handleDataResponse(with data: Data) {
+        // https://developer.apple.com/swift/blog/?id=37
+        do {
+            let json = try JSONSerialization.jsonObject(with: data, options: .mutableContainers)
+            print(json)
+        } catch {
+            print("Error")
+        }
     }
 }
 
