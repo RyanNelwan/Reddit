@@ -28,10 +28,11 @@ struct RedditModel: Codable {
     
     func log() {
         print("""
+            ----------------------------------------------------------------------
+            - RedditModel -
             Root After: \(String(describing: self.data.after))
             Number of posts: \(self.data.children.count)
-            Post Title: \(String(describing: self.data.children[0].data.title))
-            Post Kind: \(String(describing: self.data.children[0].kind))
+            ----------------------------------------------------------------------
             """)
     }
     

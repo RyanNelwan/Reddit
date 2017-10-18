@@ -27,6 +27,23 @@ import Foundation
 struct PostModel: Codable {
     struct Data: Codable {
         let title: String?
+        let author:String?
+        let thumbnail: URL?
+        let num_comments: Int
+        let created: Double
+        
+        func log() {
+            print("""
+                ----------------------------------------------------------------------
+                - PostModel.data -
+                Post Title: \(String(describing: self.title))
+                Post Author: \(String(describing: self.author))
+                Post thumbnail: \(String(describing: self.thumbnail))
+                Post num_comments: \(self.num_comments)
+                Post created: \(self.created)
+                ----------------------------------------------------------------------
+                """)
+        }
     }
     let kind: String?
     let data: Data
