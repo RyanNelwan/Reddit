@@ -31,13 +31,30 @@ struct PostModel: Codable {
         let thumbnail: URL?
         let num_comments: Int
         let created: Double
+        let created_utc: Double
         
         func numberOfCommentsString()-> String {
             return "\(self.num_comments) \(self.num_comments == 0 || self.num_comments > 1 ? "comments" : "comment")"
         }
         
         func dateString()-> String {
-            return "\(created)"
+            let date = Date(timeIntervalSince1970: created_utc)
+            let diff: TimeInterval = -date.timeIntervalSinceNow
+            var string: String = ""
+            
+            // print("created: \(created_utc) | timeDiff: \(diff)")
+            
+            if diff < 60 {
+                string = "Just now"
+            } else if diff/60 < 60 {
+                let m = String(format: "%.f", diff/60)
+                string = "\(m) minutes ago"
+            } else if diff/(60*60) < 24 {
+                let h = String(format: "%.f", diff/(60*60))
+                string = "\(h) hours ago"
+            }
+            
+            return string
         }
         
         func log() {
