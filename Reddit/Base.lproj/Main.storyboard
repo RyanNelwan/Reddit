@@ -58,15 +58,24 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DUt-bW-XrV">
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DUt-bW-XrV" userLabel="Image Container">
                                                     <rect key="frame" x="8" y="8" width="100" height="100"/>
+                                                    <subviews>
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ygH-mx-ZCo">
+                                                            <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
+                                                        </imageView>
+                                                    </subviews>
                                                     <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="100" id="Atp-bD-gdF"/>
+                                                        <constraint firstAttribute="trailing" secondItem="ygH-mx-ZCo" secondAttribute="trailing" id="F3e-E8-wQM"/>
                                                         <constraint firstAttribute="height" constant="100" id="OsW-iz-vIz"/>
+                                                        <constraint firstItem="ygH-mx-ZCo" firstAttribute="top" secondItem="DUt-bW-XrV" secondAttribute="top" id="SNR-rn-q9W"/>
+                                                        <constraint firstAttribute="bottom" secondItem="ygH-mx-ZCo" secondAttribute="bottom" id="ShC-K8-eeb"/>
+                                                        <constraint firstItem="ygH-mx-ZCo" firstAttribute="leading" secondItem="DUt-bW-XrV" secondAttribute="leading" id="exg-yi-zeT"/>
                                                     </constraints>
                                                 </view>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yTo-Gp-Wjc" userLabel="Footer View">
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yTo-Gp-Wjc" userLabel="Footer Container">
                                                     <rect key="frame" x="0.0" y="157.5" width="375" height="35"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Number of comments" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O7G-k2-2XO">
@@ -115,6 +124,7 @@
                                             <outlet property="authorLabel" destination="wy7-Kt-vo0" id="d1M-ng-Y8Z"/>
                                             <outlet property="dateLabel" destination="m2H-LI-KW1" id="0Kj-B0-F7x"/>
                                             <outlet property="numberOfCommentsLabel" destination="O7G-k2-2XO" id="3U3-GS-fOV"/>
+                                            <outlet property="thumbnailView" destination="ygH-mx-ZCo" id="15g-ur-Fd1"/>
                                             <outlet property="titleLabel" destination="Ocs-rg-cjW" id="laV-iO-CJ9"/>
                                         </connections>
                                     </tableViewCell>

@@ -16,13 +16,10 @@ struct RequestManager {
     var nextID: String?
     
     func urlString() -> String {
-        
         var s = "\(baseURLString)\(path).\(format)?limit=\(limit)"
-        
         if nextID != nil {
             s += "&after=\(self.nextID!)"
         }
-        
         return s
     }
 }

@@ -13,4 +13,5 @@ class PostTableViewCell: UITableViewCell {
     @IBOutlet var numberOfCommentsLabel: UILabel!
     @IBOutlet var dateLabel: UILabel!
     @IBOutlet var authorLabel: UILabel!
+    @IBOutlet var thumbnailView: UIImageView!
 }

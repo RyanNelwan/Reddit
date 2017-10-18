@@ -58,7 +58,7 @@ struct PostModel: Codable {
                 Post thumbnail: \(String(describing: self.thumbnail))
                 Post num_comments: \(self.num_comments)
                 Post created: \(self.created)
-                Post thumbnail: \(self.thumbnail)
+                Post thumbnail: \(String(describing: self.thumbnail))
                 ----------------------------------------------------------------------
                 """)
         }

@@ -43,7 +43,8 @@ class MainViewController: UIViewController {
             guard let url = components.url else { return }
             self.dataTask = URLSession.shared.dataTask(with: url) { (data, response, error) in
                 if error != nil {
-                    print("Error")
+                    // TODO: display error message
+                    print("Error: \(String(describing: error?.localizedDescription))")
                 }
                 guard let data = data else { return }
                 self.handleResponseData(with: data)
@@ -56,7 +57,7 @@ class MainViewController: UIViewController {
     func handleResponseData(with data: Data) {
         do {
             let model = try JSONDecoder().decode(RedditModel.self, from: data)
-            
+
             if self.redditModel == nil {
                 self.redditModel = model
             } else {
@@ -71,7 +72,8 @@ class MainViewController: UIViewController {
                 self.tableView.reloadData()
             }
         } catch {
-            print("Error: \(error))")
+            // TODO: handle error accordingly
+            print("Error: \(String(describing: error.localizedDescription))")
         }
     }
 }
@@ -101,6 +103,10 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
         
         if let numberOfCommentsString = postModel?.data.numberOfCommentsString() {
             cell.numberOfCommentsLabel.text = numberOfCommentsString
+        }
+        
+        if let thumbnailURLString = postModel?.data.thumbnail?.absoluteString {
+            cell.thumbnailView.downloadImage(with: thumbnailURLString)
         }
         
         return cell
