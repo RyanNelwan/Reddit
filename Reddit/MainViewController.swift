@@ -12,12 +12,11 @@ class MainViewController: UIViewController {
     
     @IBOutlet var tableView: UITableView!
     
-    let requestManager = RequestManager()
+    var requestManager = RequestManager()
     var dataTask: URLSessionDataTask?
     
     // Temp Fixtures
     let data = ["Some data", "Another data value", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras eu tristique urna. Praesent faucibus ligula quis turpis vehicula mattis. Curabitur odio lectus, dapibus quis auctor et, imperdiet a eros. Proin gravida sit amet sapien et accumsan. Nullam sit amet mauris nunc. Donec consectetur justo mauris, quis viverra mi sodales quis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Donec non nibh et diam suscipit accumsan a nec lorem. Nulla id interdum libero, sed dapibus ex."]
-    var nextID: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,6 +34,8 @@ class MainViewController: UIViewController {
     
     func fetchTopPosts() {
         let urlString = self.requestManager.urlString()
+        
+        print("Request: \(urlString)")
         
         self.dataTask?.cancel()
         if let components = URLComponents(string: urlString) {
@@ -56,8 +57,9 @@ class MainViewController: UIViewController {
         do {
             let model = try JSONDecoder().decode(RedditModel.self, from: data)
             model.log()
+            
             if let nextID = model.data.after {
-                self.nextID = nextID
+                self.requestManager.nextID = nextID
             }
         } catch {
             print("Error: \(error))")

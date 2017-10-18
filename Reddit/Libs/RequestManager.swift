@@ -13,8 +13,16 @@ struct RequestManager {
     let path = "/top"
     let format = "json"
     let limit = 10
+    var nextID: String?
     
     func urlString() -> String {
-        return "\(baseURLString)\(path).\(format)?limit=\(limit)"
+        
+        var s = "\(baseURLString)\(path).\(format)?limit=\(limit)"
+        
+        if nextID != nil {
+            s += "&after=\(self.nextID!)"
+        }
+        
+        return s
     }
 }

@@ -14,12 +14,22 @@ import Foundation
 struct RedditModel: Codable {
     struct Data: Codable {
         let children: [PostModel]
+        
+        // https://www.reddit.com/dev/api/
+        // As per reddit api documentation, the concept of numerical pages does not exists.
+        //
+        // "Listings do not use page numbers because their content changes so frequently.
+        // Instead, they allow you to view slices of the underlying data. Listing JSON
+        // responses contain after and before fields which are equivalent to the "next"
+        // and "prev" buttons on the site and in combination with count can be used to page
+        // through the listing."
         let after: String?
     }
     
     func log() {
         print("""
             Root After: \(String(describing: self.data.after))
+            Number of posts: \(self.data.children.count)
             Post Title: \(String(describing: self.data.children[0].data.title))
             Post Kind: \(String(describing: self.data.children[0].kind))
             """)
