@@ -11,6 +11,7 @@ import UIKit
 class MainViewController: UIViewController {
     
     @IBOutlet var tableView: UITableView!
+    var dataTask: URLSessionDataTask?
     
     // Temp Fixtures
     let data = ["Some data", "Another data value", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras eu tristique urna. Praesent faucibus ligula quis turpis vehicula mattis. Curabitur odio lectus, dapibus quis auctor et, imperdiet a eros. Proin gravida sit amet sapien et accumsan. Nullam sit amet mauris nunc. Donec consectetur justo mauris, quis viverra mi sodales quis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Donec non nibh et diam suscipit accumsan a nec lorem. Nulla id interdum libero, sed dapibus ex."]
@@ -21,11 +22,34 @@ class MainViewController: UIViewController {
         self.tableView.dataSource = self
         self.tableView.rowHeight = UITableViewAutomaticDimension
         self.tableView.estimatedRowHeight = 100
+        self.fetchTopPosts()
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func fetchTopPosts() {
+        let urlString = "https://www.reddit.com/top.json"
+        
+        self.dataTask?.cancel()
+        if let components = URLComponents(string: urlString) {
+            guard let url = components.url else { return }
+            
+            self.dataTask = URLSession.shared.dataTask(with: url) { (data, response, error) in
+                if error != nil {
+                    print("Error")
+                }
+                
+                guard let data = data else { return }
+                
+                // Handle response data
+                print(data)
+            }
+        }
+        
+        self.dataTask?.resume()
     }
 }
 
