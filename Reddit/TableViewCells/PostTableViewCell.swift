@@ -10,4 +10,7 @@ import UIKit
 
 class PostTableViewCell: UITableViewCell {
     @IBOutlet var titleLabel: UILabel!
+    @IBOutlet var numberOfCommentsLabel: UILabel!
+    @IBOutlet var dateLabel: UILabel!
+    @IBOutlet var authorLabel: UILabel!
 }
