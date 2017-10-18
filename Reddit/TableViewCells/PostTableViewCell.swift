@@ -9,5 +9,5 @@
 import UIKit
 
 class PostTableViewCell: UITableViewCell {
-    
+    @IBOutlet var titleLabel: UILabel!
 }
