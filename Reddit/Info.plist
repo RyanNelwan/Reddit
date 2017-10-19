@@ -41,5 +41,9 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>LSApplicationCategoryType</key>
+	<false/>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>Need access to save images to your photos</string>
 </dict>
 </plist>

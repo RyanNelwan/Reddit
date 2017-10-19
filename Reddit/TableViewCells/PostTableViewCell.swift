@@ -56,8 +56,4 @@ class PostTableViewCell: UITableViewCell {
             delegate.postTableViewCellDidTap(thumbnailView: self.thumbnailView, inCell: self)
         }
     }
-    
-    @IBAction func t() {
-        print("ASD")
-    }
 }

@@ -21,6 +21,13 @@ class ImageViewerViewController : UIViewController {
     }
     
     @IBAction func saveImage(){
-        // Save image
+        UIImageWriteToSavedPhotosAlbum((self.imageViewer?.image)!, self, #selector(self.image(_:didFinishSavingWithError:contextInfo:)), nil)
     }
+    
+    @objc func image(_ image: UIImage, didFinishSavingWithError error: Error?, contextInfo: UnsafeRawPointer) {
+        let alert = UIAlertController(title: "Success!", message: "Your image was saved.", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Close", style: .default, handler: nil))
+        self.present(alert, animated: true, completion: nil)
+    }
+
 }
