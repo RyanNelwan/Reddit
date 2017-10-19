@@ -105,6 +105,7 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
             cell.numberOfCommentsLabel.text = numberOfCommentsString
         }
         
+        cell.thumbnailView.image = UIImage()
         if let thumbnailURLString = postModel?.data.thumbnail?.absoluteString {
             cell.thumbnailView.downloadImage(with: thumbnailURLString)
         }

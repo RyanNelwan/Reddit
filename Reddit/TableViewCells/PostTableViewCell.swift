@@ -14,4 +14,14 @@ class PostTableViewCell: UITableViewCell {
     @IBOutlet var dateLabel: UILabel!
     @IBOutlet var authorLabel: UILabel!
     @IBOutlet var thumbnailView: UIImageView!
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        self.thumbnailView.addGestureRecognizer(UITapGestureRecognizer(target:self, action:#selector(handleImageTap(_:))))
+    }
+    
+    // Image tap handler
+    @objc func handleImageTap(_ sender: UITapGestureRecognizer) {
+        print("Open Image")
+    }
 }
