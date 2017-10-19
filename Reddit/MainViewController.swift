@@ -85,31 +85,10 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
         let cell = self.tableView.dequeueReusableCell(withIdentifier: "Post", for: indexPath) as! PostTableViewCell
-        let postModel = self.redditModel?.data.posts[indexPath.row]
-        
-        if let titleString = postModel?.data.title {
-            cell.titleLabel.text = titleString
+        if let postModel = self.redditModel?.data.posts[indexPath.row] {
+            cell.configure(postModel)
         }
-        
-        if let dateString = postModel?.data.dateString() {
-            cell.dateLabel.text = dateString
-        }
-        
-        if let authorString = postModel?.data.author {
-            cell.authorLabel.text = authorString
-        }
-        
-        if let numberOfCommentsString = postModel?.data.numberOfCommentsString() {
-            cell.numberOfCommentsLabel.text = numberOfCommentsString
-        }
-        
-        cell.thumbnailView.image = UIImage()
-        if let thumbnailURLString = postModel?.data.thumbnail?.absoluteString {
-            cell.thumbnailView.downloadImage(with: thumbnailURLString)
-        }
-        
         return cell
     }
 }

@@ -15,6 +15,29 @@ class PostTableViewCell: UITableViewCell {
     @IBOutlet var authorLabel: UILabel!
     @IBOutlet var thumbnailView: UIImageView!
     
+    func configure(_ postModel : PostModel) {
+        if let titleString = postModel.data.title {
+            self.titleLabel.text = titleString
+        }
+
+        if let dateString = postModel.data.dateString() as String? {
+            self.dateLabel.text = dateString
+        }
+        
+        if let authorString = postModel.data.author {
+            self.authorLabel.text = authorString
+        }
+        
+        if let numberOfCommentsString = postModel.data.numberOfCommentsString() as String? {
+            self.numberOfCommentsLabel.text = numberOfCommentsString
+        }
+        
+        self.thumbnailView.image = UIImage()
+        if let thumbnailURLString = postModel.data.thumbnail?.absoluteString {
+            self.thumbnailView.downloadImage(with: thumbnailURLString)
+        }
+    }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         self.thumbnailView.addGestureRecognizer(UITapGestureRecognizer(target:self, action:#selector(handleImageTap(_:))))
