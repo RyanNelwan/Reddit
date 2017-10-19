@@ -35,10 +35,8 @@ class MainViewController: UIViewController {
     
     func fetchTopPosts() {
         let urlString = self.requestManager.urlString()
-        
-        print("Request: \(urlString)")
-        
         self.dataTask?.cancel()
+        
         if let components = URLComponents(string: urlString) {
             guard let url = components.url else { return }
             self.dataTask = URLSession.shared.dataTask(with: url) { (data, response, error) in
@@ -78,7 +76,14 @@ class MainViewController: UIViewController {
     }
 }
 
-extension MainViewController: UITableViewDelegate, UITableViewDataSource {
+extension MainViewController: UITableViewDelegate, UITableViewDataSource, PostTableViewCellDelegate {
+    
+    func postTableViewCellDidTap(thumbnailView: UIImageView, inCell: PostTableViewCell) {
+        if let imageViewerViewController = self.storyboard?.instantiateViewController(withIdentifier: "ImageViewer") as? ImageViewerViewController {
+            imageViewerViewController.postModel = inCell.postModel
+            self.navigationController?.pushViewController(imageViewerViewController, animated: true)
+        }
+    }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.redditModel?.data.posts.count ?? 0
@@ -88,6 +93,7 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
         let cell = self.tableView.dequeueReusableCell(withIdentifier: "Post", for: indexPath) as! PostTableViewCell
         if let postModel = self.redditModel?.data.posts[indexPath.row] {
             cell.configure(postModel)
+            cell.delegate = self
         }
         return cell
     }
