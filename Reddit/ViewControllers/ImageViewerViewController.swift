@@ -15,7 +15,7 @@ class ImageViewerViewController : UIViewController {
     @IBOutlet var activityView: UIActivityIndicatorView?
     @IBOutlet var saveButton: UIButton?
     
-    var isLoading: Bool = false {
+    var isDownloading: Bool = false {
         didSet {
             self.activityView?.stopAnimating()
         }
@@ -33,9 +33,9 @@ class ImageViewerViewController : UIViewController {
             self.imageViewer?.downloadImage(with: imageURLString, completion: {
                 // Enable it once download completes
                 self.saveButton?.isUserInteractionEnabled = true
-                self.isLoading = false
+                self.isDownloading = false
             }) { (error) in
-                self.isLoading = false
+                self.isDownloading = false
             }
         }
     }
@@ -55,17 +55,23 @@ class ImageViewerViewController : UIViewController {
 
 extension ImageViewerViewController {
     
+    enum ImageViewerViewCodingKeys: String {
+        case redditModel = "ImageViewerViewController:redditModel"
+        case postModel = "ImageViewerViewController:postModel"
+        func val()-> String { return self.rawValue }
+    }
+    
     override func encodeRestorableState(with coder: NSCoder) {
         if let postModel = self.postModel {
             let encoder = JSONEncoder()
             let encodedModel = try! encoder.encode(postModel)
-            coder.encode(encodedModel, forKey: "ImageViewerController_PostModel")
+            coder.encode(encodedModel, forKey: ImageViewerViewCodingKeys.postModel.val())
         }
         super.encodeRestorableState(with: coder)
     }
     
     override func decodeRestorableState(with coder: NSCoder) {
-        if let restoredPostData = coder.decodeObject(forKey: "ImageViewerController_PostModel") as? Data {
+        if let restoredPostData = coder.decodeObject(forKey: ImageViewerViewCodingKeys.postModel.val()) as? Data {
             do {
                 let postModel = try JSONDecoder().decode(PostModel.self, from: restoredPostData)
                 self.postModel = postModel

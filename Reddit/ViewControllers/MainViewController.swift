@@ -20,6 +20,7 @@ class MainViewController: UIViewController {
     lazy var refreshControl: UIRefreshControl = {
         let r = UIRefreshControl()
         r.addTarget(self, action: #selector(self.handleRefresh(_:)), for: .valueChanged)
+        self.tableView.addSubview(r)
         return r
     }()
     
@@ -38,12 +39,12 @@ class MainViewController: UIViewController {
             }
         }
     }
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tableView.delegate = self
         self.tableView.dataSource = self
-        self.tableView.addSubview(self.refreshControl)
         self.fetchTopPosts()
     }
     
@@ -68,7 +69,7 @@ class MainViewController: UIViewController {
             guard let url = components.url else { return }
             self.dataTask = URLSession.shared.dataTask(with: url) { (data, response, error) in
                 
-                self.isRequesting = false
+                dispatchMain { self.isRequesting = false }
                 
                 // Check if we're restoring
                 if self.isRestoring {
@@ -99,9 +100,8 @@ class MainViewController: UIViewController {
             if let nextID = model.data.after {
                 self.requestManager.nextID = nextID
             }
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
-            }
+            
+            dispatchMain { self.tableView.reloadData() }
         } catch {
             // TODO: handle error accordingly
             print("Error: \(String(describing: error.localizedDescription))")
