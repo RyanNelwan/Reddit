@@ -42,7 +42,7 @@ class PostTableViewCell: UITableViewCell {
         self.thumbnailView.image = UIImage()
         
         if postModel.data.containsImage() {
-            if let thumbnailURLString = postModel.data.preview?.images![0].source?.url?.absoluteString {
+            if let thumbnailURLString = postModel.data.thumbnail?.absoluteString {
                 self.thumbnailView.downloadImage(with: thumbnailURLString)
             }
         }

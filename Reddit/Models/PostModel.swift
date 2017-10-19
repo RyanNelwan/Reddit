@@ -26,6 +26,7 @@ struct PostModel: Codable {
         let created: Double
         let created_utc: Double
         let preview: PreviewModel?
+        let url: URL?
         
         func numberOfCommentsString()-> String {
             return "\(self.num_comments) \(self.num_comments == 0 || self.num_comments > 1 ? "comments" : "comment")"
@@ -52,6 +53,13 @@ struct PostModel: Codable {
         }
         
         func containsImage()-> Bool {
+            // Check if it's a gif
+            if let sourceURLString = self.url?.absoluteString {
+                if sourceURLString.lowercased().range(of:"gif") != nil {
+                    return false
+                }
+            }
+            // Ensure images array is not nill and is not empty
             if self.preview?.images != nil && !(self.preview?.images?.isEmpty)! {
                 return true
             }
