@@ -30,3 +30,12 @@ class ImageViewerViewController : UIViewController {
         self.present(alert, animated: true, completion: nil)
     }
 }
+
+extension ImageViewerViewController {
+    override func applicationFinishedRestoringState() {
+        super.applicationFinishedRestoringState()
+    }
+    override func decodeRestorableState(with coder: NSCoder) {
+        super.decodeRestorableState(with: coder)
+    }
+}

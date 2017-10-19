@@ -95,3 +95,13 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource, PostTa
         return cell
     }
 }
+
+extension MainViewController {
+    override func applicationFinishedRestoringState() {
+        super.applicationFinishedRestoringState()
+    }
+    
+    override func decodeRestorableState(with coder: NSCoder) {
+        super.decodeRestorableState(with: coder)
+    }
+}
