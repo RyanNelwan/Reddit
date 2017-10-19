@@ -24,6 +24,7 @@ struct PostModel: Codable {
         let num_comments: Int
         let created: Double
         let created_utc: Double
+        let preview: PreviewModel
         
         func numberOfCommentsString()-> String {
             return "\(self.num_comments) \(self.num_comments == 0 || self.num_comments > 1 ? "comments" : "comment")"

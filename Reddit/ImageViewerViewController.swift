@@ -15,8 +15,8 @@ class ImageViewerViewController : UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        if let thumbnailURLString = self.postModel?.data.thumbnail?.absoluteString {
-            self.imageViewer?.downloadImage(with: thumbnailURLString)
+        if let imageURLString = self.postModel?.data.preview.images![0].source?.url?.absoluteString {
+            self.imageViewer?.downloadImage(with: imageURLString)
         }
     }
     
@@ -29,5 +29,4 @@ class ImageViewerViewController : UIViewController {
         alert.addAction(UIAlertAction(title: "Close", style: .default, handler: nil))
         self.present(alert, animated: true, completion: nil)
     }
-
 }
