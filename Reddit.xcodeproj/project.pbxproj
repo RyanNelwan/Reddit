@@ -10,6 +10,8 @@
 		9425F21C1F981ABF00A5D3D4 /* UIImageView+Reddit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9425F21B1F981ABF00A5D3D4 /* UIImageView+Reddit.swift */; };
 		9425F2201F9829EE00A5D3D4 /* ImageViewerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9425F21F1F9829EE00A5D3D4 /* ImageViewerViewController.swift */; };
 		9425F2221F983E2400A5D3D4 /* PreviewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9425F2211F983E2400A5D3D4 /* PreviewModel.swift */; };
+		9425F2291F98708200A5D3D4 /* MainViewController+TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9425F2281F98708200A5D3D4 /* MainViewController+TableView.swift */; };
+		9425F22B1F98716D00A5D3D4 /* MainViewController+StatePreservation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9425F22A1F98716D00A5D3D4 /* MainViewController+StatePreservation.swift */; };
 		94DAE7051F97D55100B5E459 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94DAE7041F97D55100B5E459 /* AppDelegate.swift */; };
 		94DAE7071F97D55100B5E459 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94DAE7061F97D55100B5E459 /* MainViewController.swift */; };
 		94DAE70A1F97D55100B5E459 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 94DAE7081F97D55100B5E459 /* Main.storyboard */; };
@@ -44,6 +46,8 @@
 		9425F21B1F981ABF00A5D3D4 /* UIImageView+Reddit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Reddit.swift"; sourceTree = "<group>"; };
 		9425F21F1F9829EE00A5D3D4 /* ImageViewerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewerViewController.swift; sourceTree = "<group>"; };
 		9425F2211F983E2400A5D3D4 /* PreviewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewModel.swift; sourceTree = "<group>"; };
+		9425F2281F98708200A5D3D4 /* MainViewController+TableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MainViewController+TableView.swift"; sourceTree = "<group>"; };
+		9425F22A1F98716D00A5D3D4 /* MainViewController+StatePreservation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MainViewController+StatePreservation.swift"; sourceTree = "<group>"; };
 		94DAE7011F97D55100B5E459 /* Reddit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Reddit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		94DAE7041F97D55100B5E459 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		94DAE7061F97D55100B5E459 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
@@ -96,6 +100,17 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		9425F2271F98706300A5D3D4 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				9425F21F1F9829EE00A5D3D4 /* ImageViewerViewController.swift */,
+				94DAE7061F97D55100B5E459 /* MainViewController.swift */,
+				9425F2281F98708200A5D3D4 /* MainViewController+TableView.swift */,
+				9425F22A1F98716D00A5D3D4 /* MainViewController+StatePreservation.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
 		94DAE6F81F97D55100B5E459 = {
 			isa = PBXGroup;
 			children = (
@@ -119,17 +134,16 @@
 		94DAE7031F97D55100B5E459 /* Reddit */ = {
 			isa = PBXGroup;
 			children = (
+				9425F2271F98706300A5D3D4 /* ViewControllers */,
 				9425F21A1F981AB100A5D3D4 /* Extensions */,
 				94EB5B601F97FEDB000451A3 /* Utils */,
 				94EB5B5B1F97F834000451A3 /* Models */,
 				94EB5B4C1F97DE4C000451A3 /* TableViewCells */,
 				94DAE7041F97D55100B5E459 /* AppDelegate.swift */,
-				94DAE7061F97D55100B5E459 /* MainViewController.swift */,
 				94DAE7081F97D55100B5E459 /* Main.storyboard */,
 				94DAE70B1F97D55100B5E459 /* Assets.xcassets */,
 				94DAE70D1F97D55100B5E459 /* LaunchScreen.storyboard */,
 				94DAE7101F97D55100B5E459 /* Info.plist */,
-				9425F21F1F9829EE00A5D3D4 /* ImageViewerViewController.swift */,
 			);
 			path = Reddit;
 			sourceTree = "<group>";
@@ -313,6 +327,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				94DAE7071F97D55100B5E459 /* MainViewController.swift in Sources */,
+				9425F2291F98708200A5D3D4 /* MainViewController+TableView.swift in Sources */,
+				9425F22B1F98716D00A5D3D4 /* MainViewController+StatePreservation.swift in Sources */,
 				94EB5B5F1F97F8A9000451A3 /* PostModel.swift in Sources */,
 				94EB5B5D1F97F86C000451A3 /* RedditModel.swift in Sources */,
 				94EB5B641F97FEF9000451A3 /* RequestManager.swift in Sources */,

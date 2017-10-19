@@ -8,9 +8,8 @@
 
 import UIKit
 
-
 extension UIImageView {
-    
+
     // Asynchronous image download
     public func downloadImage(with string: String) {
         URLSession.shared.dataTask(with: NSURL(string: string)! as URL, completionHandler: { (data, response, error) -> Void in
