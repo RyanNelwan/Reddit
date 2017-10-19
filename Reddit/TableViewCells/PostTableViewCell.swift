@@ -40,18 +40,24 @@ class PostTableViewCell: UITableViewCell {
             self.numberOfCommentsLabel.text = numberOfCommentsString
         }
         self.thumbnailView.image = UIImage()
-        if let thumbnailURLString = postModel.data.thumbnail?.absoluteString {
-            self.thumbnailView.downloadImage(with: thumbnailURLString)
+        
+        if postModel.data.containsImage() {
+            if let thumbnailURLString = postModel.data.preview?.images![0].source?.url?.absoluteString {
+                self.thumbnailView.downloadImage(with: thumbnailURLString)
+            }
         }
     }
     
     override func awakeFromNib() {
         super.awakeFromNib()
-         self.thumbnailView.addGestureRecognizer(UITapGestureRecognizer(target:self, action:#selector(handleImageTap(_:))))
+        self.thumbnailView.addGestureRecognizer(UITapGestureRecognizer(target:self, action:#selector(handleImageTap(_:))))
     }
     
     // Image tap handler
     @objc func handleImageTap(_ sender: UITapGestureRecognizer) {
+        if !(self.postModel?.data.containsImage())! {
+            return
+        }
         if let delegate = self.delegate {
             delegate.postTableViewCellDidTap(thumbnailView: self.thumbnailView, inCell: self)
         }

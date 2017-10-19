@@ -55,17 +55,14 @@ class MainViewController: UIViewController {
     func handleResponseData(with data: Data) {
         do {
             let model = try JSONDecoder().decode(RedditModel.self, from: data)
-
             if self.redditModel == nil {
                 self.redditModel = model
             } else {
                 self.redditModel?.data.posts.append(contentsOf: model.data.posts)
             }
-            
             if let nextID = model.data.after {
                 self.requestManager.nextID = nextID
             }
-            
             DispatchQueue.main.async {
                 self.tableView.reloadData()
             }

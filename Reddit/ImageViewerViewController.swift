@@ -15,7 +15,7 @@ class ImageViewerViewController : UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        if let imageURLString = self.postModel?.data.preview.images![0].source?.url?.absoluteString {
+        if let imageURLString = self.postModel?.data.preview?.images![0].source?.url?.absoluteString {
             self.imageViewer?.downloadImage(with: imageURLString)
         }
     }

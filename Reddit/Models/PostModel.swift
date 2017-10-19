@@ -18,13 +18,14 @@ import Foundation
 struct PostModel: Codable {
     
     struct Data: Codable {
+        
         let title: String?
         let author:String?
         let thumbnail: URL?
         let num_comments: Int
         let created: Double
         let created_utc: Double
-        let preview: PreviewModel
+        let preview: PreviewModel?
         
         func numberOfCommentsString()-> String {
             return "\(self.num_comments) \(self.num_comments == 0 || self.num_comments > 1 ? "comments" : "comment")"
@@ -50,6 +51,13 @@ struct PostModel: Codable {
             return string
         }
         
+        func containsImage()-> Bool {
+            if self.preview?.images != nil && !(self.preview?.images?.isEmpty)! {
+                return true
+            }
+            return false
+        }
+        
         func log() {
             print("""
                 ----------------------------------------------------------------------
@@ -60,6 +68,7 @@ struct PostModel: Codable {
                 Post num_comments: \(self.num_comments)
                 Post created: \(self.created)
                 Post thumbnail: \(String(describing: self.thumbnail))
+                Post Image URL: \(String(describing: self.containsImage() ? String(describing: self.preview?.images![0].source?.url) : nil ))
                 ----------------------------------------------------------------------
                 """)
         }
