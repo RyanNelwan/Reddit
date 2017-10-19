@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct RequestManager: Codable {
+struct RequestManager {
     let baseURLString = "https://www.reddit.com"
     let path = "/top"
     let format = "json"
