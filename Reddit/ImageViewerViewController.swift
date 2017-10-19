@@ -32,10 +32,13 @@ class ImageViewerViewController : UIViewController {
 }
 
 extension ImageViewerViewController {
-    override func applicationFinishedRestoringState() {
-        super.applicationFinishedRestoringState()
+    override func encodeRestorableState(with coder: NSCoder) {
+        super.encodeRestorableState(with: coder)
     }
     override func decodeRestorableState(with coder: NSCoder) {
         super.decodeRestorableState(with: coder)
+    }
+    override func applicationFinishedRestoringState() {
+        super.applicationFinishedRestoringState()
     }
 }
