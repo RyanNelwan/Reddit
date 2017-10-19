@@ -12,16 +12,28 @@ class ImageViewerViewController : UIViewController {
     
     public var postModel: PostModel?
     @IBOutlet var imageViewer: UIImageView?
+    @IBOutlet var activityView: UIActivityIndicatorView?
+    @IBOutlet var saveButton: UIButton?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         if let imageURLString = self.postModel?.data.preview?.images![0].source?.url?.absoluteString {
-            self.imageViewer?.downloadImage(with: imageURLString)
+            self.imageViewer?.downloadImage(with: imageURLString, completion: {
+                self.activityView?.stopAnimating()
+                // Enable it once download completes
+                self.saveButton?.isUserInteractionEnabled = true
+            }) { (error) in
+                self.activityView?.stopAnimating()
+            }
         }
     }
     
+    private func configureView() {
+        
+    }
+    
     @IBAction func saveImage(){
-        // TODO: show load indicator
         UIImageWriteToSavedPhotosAlbum((self.imageViewer?.image)!, self, #selector(self.image(_:didFinishSavingWithError:contextInfo:)), nil)
     }
     

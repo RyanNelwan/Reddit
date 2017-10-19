@@ -16,8 +16,6 @@ extension MainViewController {
             let encoder = JSONEncoder()
             let encodedModel = try! encoder.encode(redditModel)
             coder.encode(encodedModel, forKey: "RedditModel")
-            
-            print("Saving: \(self.tableView.contentOffset.y)")
             coder.encode(self.tableView.contentOffset, forKey: "TableViewOffset")
         }
         super.encodeRestorableState(with: coder)
@@ -48,7 +46,6 @@ extension MainViewController {
                 // Restore our tableview offset
                 self.restoredOffset = coder.decodeCGPoint(forKey: "TableViewOffset")
                 
-                self.tableView.reloadData()
             } catch {
                 print("Could not restore previous state")
             }
@@ -58,8 +55,8 @@ extension MainViewController {
     
     override func applicationFinishedRestoringState() {
         
+        self.tableView.reloadData()
         self.tableView.setContentOffset(self.restoredOffset, animated: false)
-        self.tableView.layoutIfNeeded()
         
         if self.isRestoring {
             self.isRequesting = false
