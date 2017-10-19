@@ -13,6 +13,9 @@ struct RequestManager {
     let path = "/top"
     let format = "json"
     let limit = 10
+    let max = 50
+    let offset = 0
+    
     var nextID: String?
     
     func urlString() -> String {

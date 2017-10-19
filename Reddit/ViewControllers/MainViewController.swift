@@ -40,7 +40,6 @@ class MainViewController: UIViewController {
         }
     }
     
-
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tableView.delegate = self
@@ -77,7 +76,6 @@ class MainViewController: UIViewController {
                 }
                 
                 if error != nil {
-                    // TODO: display error message
                     print("Error: \(String(describing: error?.localizedDescription))")
                 }
                 
@@ -103,8 +101,13 @@ class MainViewController: UIViewController {
             
             dispatchMain { self.tableView.reloadData() }
         } catch {
-            // TODO: handle error accordingly
-            print("Error: \(String(describing: error.localizedDescription))")
+            dispatchMain { self.presentAlert(with: "Sorry, there was an error with fetching the top reddit posts. Please try again.") }
         }
+    }
+    
+    func presentAlert(with errorMessage: String) {
+        let alert = UIAlertController(title: "Error", message: errorMessage, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Close", style: .default, handler: nil))
+        self.present(alert, animated: true, completion: nil)
     }
 }

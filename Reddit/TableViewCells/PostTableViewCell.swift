@@ -19,6 +19,8 @@ class PostTableViewCell: UITableViewCell {
     @IBOutlet var dateLabel: UILabel!
     @IBOutlet var authorLabel: UILabel!
     @IBOutlet var thumbnailView: UIImageView!
+    @IBOutlet var linkIconImageView: UIImageView!
+    @IBOutlet var commentIconImageView: UIImageView!
     
     weak var delegate: PostTableViewCellDelegate?
     var postModel: PostModel?
@@ -39,12 +41,15 @@ class PostTableViewCell: UITableViewCell {
         if let numberOfCommentsString = postModel.data.numberOfCommentsString() as String? {
             self.numberOfCommentsLabel.text = numberOfCommentsString
         }
-        self.thumbnailView.image = UIImage()
         
-        if postModel.data.containsImage() {
+        if postModel.data.containsThumbnail() {
             if let thumbnailURLString = postModel.data.thumbnail?.absoluteString {
-                self.thumbnailView.downloadImage(with: thumbnailURLString, completion: nil, failure: nil)
+               self.thumbnailView.downloadImage(with: thumbnailURLString, completion: nil, failure: nil)
             }
+        } else if (self.postModel?.data.isSelf())! {
+            self.commentIconImageView.isHidden = false
+        } else {
+            self.linkIconImageView.isHidden = false
         }
     }
     
@@ -53,13 +58,21 @@ class PostTableViewCell: UITableViewCell {
         self.thumbnailView.addGestureRecognizer(UITapGestureRecognizer(target:self, action:#selector(handleImageTap(_:))))
     }
     
-    // Image tap handler
     @objc func handleImageTap(_ sender: UITapGestureRecognizer) {
-        if !(self.postModel?.data.containsImage())! {
+        
+        if (self.postModel?.data.isSelf())! || !(self.postModel?.data.containsImage())! {
             return
         }
+        
         if let delegate = self.delegate {
             delegate.postTableViewCellDidTap(thumbnailView: self.thumbnailView, inCell: self)
         }
+    }
+    
+    override func prepareForReuse() {
+        self.thumbnailView.image = UIImage()
+        self.commentIconImageView.isHidden = true
+        self.linkIconImageView.isHidden = true
+        super.prepareForReuse()
     }
 }

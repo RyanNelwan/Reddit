@@ -15,12 +15,7 @@
      "data":{
          "modhash":"",
          "whitelist_status":"all_ads",
-         "children":[
-             {
-                 "kind":"t3",
-                 "data":{ ... }
-             }
-         ]
+         "children":[{ ... }]
      }
  }
 */
@@ -49,6 +44,9 @@ struct RedditModel: Codable {
     
     let kind: String?
     var data: Data
+}
+
+extension RedditModel {
     
     func log() {
         print("""

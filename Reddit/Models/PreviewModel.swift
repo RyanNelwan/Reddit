@@ -17,16 +17,8 @@ import Foundation
                  "width":2048,
                  "height":2048
              },
-             "resolutions":[
-                 {
-                 "url":"URL",
-                 "width":108,
-                 "height":108
-                 }
-             ],
-             "variants":{
-                 ...
-             },
+             "resolutions":[{ ... }],
+             "variants":{...},
              "id":"..."
          }
      ],

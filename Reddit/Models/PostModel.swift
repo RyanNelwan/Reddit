@@ -6,7 +6,7 @@
 //  Copyright © 2017 Ryan Nelwan. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 /*
  {
@@ -27,6 +27,7 @@ struct PostModel: Codable {
         let created_utc: Double
         let preview: PreviewModel?
         let url: URL?
+        let is_self: Bool
         
         func numberOfCommentsString()-> String {
             return "\(self.num_comments) \(self.num_comments == 0 || self.num_comments > 1 ? "comments" : "comment")"
@@ -36,8 +37,6 @@ struct PostModel: Codable {
             let date = Date(timeIntervalSince1970: created_utc)
             let diff: TimeInterval = -date.timeIntervalSinceNow
             var string: String = ""
-            
-            // print("created: \(created_utc) | timeDiff: \(diff)")
             
             if diff < 60 {
                 string = "Just now"
@@ -66,23 +65,35 @@ struct PostModel: Codable {
             return false
         }
         
-        func log() {
-            print("""
-                ----------------------------------------------------------------------
-                - PostModel.data -
-                Post Title: \(String(describing: self.title))
-                Post Author: \(String(describing: self.author))
-                Post thumbnail: \(String(describing: self.thumbnail))
-                Post num_comments: \(self.num_comments)
-                Post created: \(self.created)
-                Post thumbnail: \(String(describing: self.thumbnail))
-                Post Image URL: \(String(describing: self.containsImage() ? String(describing: self.preview?.images![0].source?.url) : nil ))
-                ----------------------------------------------------------------------
-                """)
+        func containsThumbnail()-> Bool {
+            return self.thumbnail != nil
+                && self.thumbnail?.absoluteString.range(of: "default") == nil
+                && self.thumbnail?.absoluteString.range(of: "self") == nil
+        }
+        
+        func isSelf()-> Bool {
+            return self.is_self
         }
     }
     
-    let kind: String?
+    let kind: String? // Every "kind" is "t3"
     let data: Data
 }
 
+extension PostModel {
+    func log() {
+        print("""
+            ----------------------------------------------------------------------
+            - PostModel.data -
+            Post Title: \(String(describing: self.data.title))
+            Post Author: \(String(describing: self.data.author))
+            Post num_comments: \(self.data.num_comments)
+            Post created: \(self.data.created)
+            Post thumbnail: \(String(describing: self.data.thumbnail)) | \(self.data.containsThumbnail())
+            Post Image URL: \(String(describing: self.data.containsImage() ? String(describing: self.data.preview?.images![0].source?.url) : nil ))
+            Post is_self: \(self.data.is_self)
+            Post sourceURL: \(String(describing: self.data.url?.absoluteString))
+            ----------------------------------------------------------------------
+            """)
+    }
+}
