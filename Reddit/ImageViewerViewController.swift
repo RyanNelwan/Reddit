@@ -21,6 +21,7 @@ class ImageViewerViewController : UIViewController {
     }
     
     @IBAction func saveImage(){
+        // TODO: show load indicator
         UIImageWriteToSavedPhotosAlbum((self.imageViewer?.image)!, self, #selector(self.image(_:didFinishSavingWithError:contextInfo:)), nil)
     }
     
@@ -31,13 +32,18 @@ class ImageViewerViewController : UIViewController {
     }
 }
 
+// MARK: App state preserveration and restoration
+
 extension ImageViewerViewController {
+    
     override func encodeRestorableState(with coder: NSCoder) {
         super.encodeRestorableState(with: coder)
     }
+    
     override func decodeRestorableState(with coder: NSCoder) {
         super.decodeRestorableState(with: coder)
     }
+    
     override func applicationFinishedRestoringState() {
         super.applicationFinishedRestoringState()
     }

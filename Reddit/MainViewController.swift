@@ -15,6 +15,8 @@ class MainViewController: UIViewController {
     var requestManager = RequestManager()
     var dataTask: URLSessionDataTask?
     var redditModel: RedditModel?
+    var isRequesting: Bool = false
+    var isRestoring: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,11 +37,20 @@ class MainViewController: UIViewController {
     
     func fetchTopPosts() {
         let urlString = self.requestManager.urlString()
+        
         self.dataTask?.cancel()
+        self.isRequesting = true
         
         if let components = URLComponents(string: urlString) {
             guard let url = components.url else { return }
             self.dataTask = URLSession.shared.dataTask(with: url) { (data, response, error) in
+                self.isRequesting = false
+                
+                // Check if we're restoring
+                if self.isRestoring {
+                    return
+                }
+                
                 if error != nil {
                     // TODO: display error message
                     print("Error: \(String(describing: error?.localizedDescription))")
@@ -73,6 +84,8 @@ class MainViewController: UIViewController {
     }
 }
 
+// MARK: UITableView
+
 extension MainViewController: UITableViewDelegate, UITableViewDataSource, PostTableViewCellDelegate {
     
     func postTableViewCellDidTap(thumbnailView: UIImageView, inCell: PostTableViewCell) {
@@ -96,14 +109,48 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource, PostTa
     }
 }
 
+// MARK: App state preserveration and restoration
+
 extension MainViewController {
+    
     override func encodeRestorableState(with coder: NSCoder) {
+        // Encode model
+        if let redditModel = self.redditModel {
+            let encoder = JSONEncoder()
+            let encodedModel = try! encoder.encode(redditModel)
+            coder.encode(encodedModel, forKey: "RedditModel")
+        }
         super.encodeRestorableState(with: coder)
     }
+    
     override func decodeRestorableState(with coder: NSCoder) {
+        if let restoredRedditData = coder.decodeObject(forKey: "RedditModel") as? Data {
+            do {
+                // Restore our model
+                let redditModel = try JSONDecoder().decode(RedditModel.self, from: restoredRedditData)
+                self.redditModel = redditModel
+                self.isRestoring = true
+                if self.isRequesting {
+                    self.dataTask?.cancel()
+                }
+                
+                // Restore our nextID for request manager
+                if let nextID = redditModel.data.after {
+                    self.requestManager.nextID = nextID
+                }
+            } catch {
+                print("Could not restore previous state")
+            }
+        }
         super.decodeRestorableState(with: coder)
     }
+    
     override func applicationFinishedRestoringState() {
+        self.tableView.reloadData()
+        if self.isRestoring {
+            self.isRequesting = false
+        }
+        self.isRestoring = false
         super.applicationFinishedRestoringState()
     }
 }
